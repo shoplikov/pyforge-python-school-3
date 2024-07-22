@@ -2,10 +2,11 @@ from rdkit import Chem
 
 def substructure_search(mols, mol):
     subs = []
-    mols_from_smiles = [Chem.MolFromSmiles(mol) for mol in mols]
-    for single_mol in mols_from_smiles:
-        if single_mol.HasSubstructMatch(Chem.MolFromSmiles(mol)):
-            subs.append(Chem.MolToSmiles(single_mol))
-    print(subs)
+    molecules = [Chem.MolFromSmiles(smile) for smile in mols]
+    converted_mol = Chem.MolFromSmiles(mol)
+    for molecule in molecules:
+        if molecule.HasSubstructMatch(converted_mol):
+            subs.append(Chem.MolToSmiles(molecule))
+    return subs
 
-substructure_search(["CCO", "c1ccccc1", "CC(=O)O", "CC(=O)Oc1ccccc1C(=O)O"], "c1ccccc1")
+print(substructure_search(["CCO", "c1ccccc1", "CC(=O)O", "CC(=O)Oc1ccccc1C(=O)O"], "c1ccccc1"))
