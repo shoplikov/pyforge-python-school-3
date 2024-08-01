@@ -1,11 +1,17 @@
 from rdkit import Chem
 from typing import List, Dict, Optional
 from fastapi import FastAPI, HTTPException
-from .models import Molecule
+from models import Molecule
+from os import getenv
 
 app = FastAPI()
 
 molecule_db: Dict[str, Molecule] = {}
+
+
+@app.get("/")
+def get_server():
+    return {"server_id": getenv("SERVER_ID", "1")}
 
 @app.post('/molecule/add')
 async def add_molecule(molecule: Molecule):
