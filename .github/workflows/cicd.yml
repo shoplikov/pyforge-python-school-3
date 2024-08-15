@@ -39,7 +39,7 @@ jobs:
         pip install flake8
 
     - name: run flake8
-      run: flake8 src/ --max-line-length=88
+      run: flake8 src
 
     - name: run tests
       run: pytest src/tests/
