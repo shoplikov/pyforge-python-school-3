@@ -11,15 +11,16 @@ on:
       - cicd
 
 jobs:
+  # Job to run tests
   test:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Updated to v4 for Node.js 20
 
     - name: Set up Python 3.12
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v4  # This version will automatically use Node.js 20
       with:
         python-version: 3.12
 
@@ -37,10 +38,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Updated to v4 for Node.js 20
 
     - name: Set up Python 3.12
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v4  # Updated to v4
       with:
         python-version: 3.12
 
