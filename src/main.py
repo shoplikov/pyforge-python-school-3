@@ -17,7 +17,8 @@ def get_server():
 @app.post('/molecule/add')
 async def add_molecule(molecule: Molecule):
     if molecule.identifier in molecule_db:
-        raise HTTPException(status_code=400, detail="identifier already exists")
+        raise HTTPException(status_code=400,
+                            detail="identifier already exists")
     molecule_db[molecule.identifier] = molecule
     return {"message": "molecule was added"}
 
