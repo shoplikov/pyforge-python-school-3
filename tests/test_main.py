@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from .main import app, molecule_db, Molecule
+from src.main import app, molecule_db
 
 client = TestClient(app)
 
@@ -45,8 +45,7 @@ def test_list_molecules():
 def test_substructure_search():
     client.post("/molecule/add", json={"identifier": "mol1", "smiles": "CC(=O)O"})
     client.post("/molecule/add", json={"identifier": "mol2", "smiles": "c1ccccc1"})
-    
-    # Check that molecules are added correctly
+
     response = client.get("/molecules")
     print("Molecules added:", response.json())
     assert response.status_code == 200
