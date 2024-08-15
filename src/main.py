@@ -1,5 +1,5 @@
 from rdkit import Chem
-from typing import List, Dict, Optional
+from typing import List, Dict
 from fastapi import FastAPI, HTTPException
 from models import Molecule
 from os import getenv
@@ -44,7 +44,7 @@ async def delete_molecule(identifier: str):
     if molecule is None:
         raise HTTPException(status_code=404, detail="there's no such molecule")
     return {"message": "molecule was deleted"}
-    
+
 
 @app.get('/molecules')
 async def list_molecules():
@@ -57,7 +57,6 @@ async def substructure_search(mol: str) -> List[Molecule]:
     converted_mol = Chem.MolFromSmiles(mol)
     if converted_mol is None:
         raise HTTPException(status_code=400, detail="wrong smile format")
-    
     for molecule in molecule_db.values():
         molecules = Chem.MolFromSmiles(molecule.smiles)
         if molecules and molecules.HasSubstructMatch(converted_mol):
