@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from src.main import app, molecule_db
+from main import app, molecule_db
 
 client = TestClient(app)
 

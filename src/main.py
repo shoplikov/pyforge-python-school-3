@@ -1,7 +1,7 @@
 from rdkit import Chem
 from typing import List, Dict, Optional
 from fastapi import FastAPI, HTTPException
-from .models import Molecule
+from models import Molecule
 from os import getenv
 
 app = FastAPI()
