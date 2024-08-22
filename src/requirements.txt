@@ -2,3 +2,5 @@ fastapi
 uvicorn
 rdkit
 pydantic
+pytest
+httpx
