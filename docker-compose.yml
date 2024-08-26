@@ -1,30 +1,58 @@
 version: '3.8'
 
 services:
-  web1:
-    build: ./src
-    volumes:
-      - ./src:/src
+
+  db:
+    container_name: postgres_db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
     environment:
-      SERVER_ID: SERVER-1
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    ports:
+      - 5050:80
+    depends_on:
+      - db
+
+  app1:
+    container_name: app
+    build: .
     ports:
       - "8001:8000"
-  
-  web2:
-    build: ./src
     volumes:
-      - ./src:/src
-    environment:
-      SERVER_ID: SERVER-2
+      - .:/app
+    depends_on:
+      - db
+    restart: always
+  
+  app2:
+    container_name: app2
+    build: .
     ports:
       - "8002:8000"
-      
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    restart: always
+
   nginx:
+    container_name: nginx
     image: nginx:latest
     ports:
       - "8000:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
     depends_on:
-      - web1
-      - web2
+      - app1
+      - app2
