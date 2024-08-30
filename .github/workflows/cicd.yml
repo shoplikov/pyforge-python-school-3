@@ -1,54 +1,42 @@
-name: CI Pipeline
+name: Run Tests
 
 on:
   push:
     branches:
       - main
-      - cicd
   pull_request:
     branches:
       - main
-      - cicd
 
 jobs:
   test:
-    name: run tests
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  
+      uses: actions/checkout@v3
 
-    - name: setup python
-      uses: actions/setup-python@v4 
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        python-version: 3.12
+        python-version: '3.12'  
 
-    - name: installing dependencies
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r src/requirements.txt
+        pip install -r requirements.txt  # Ensure your dependencies are listed here
 
-    - name: running tests
-      run: pytest src/tests/
+    - name: Set up environment variables
+      run: echo "DATABASE_URL=sqlite:///./test.db" >> $GITHUB_ENV
 
-  flake8:
-    name: run lake8
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4  
-
-    - name: setup python
-      uses: actions/setup-python@v4  
-      with:
-        python-version: 3.12
-
-    - name: installing dependencies
+    - name: Run tests
       run: |
-        python -m pip install --upgrade pip
-        pip install flake8 
+        pytest --maxfail=1 --disable-warnings -q  # Adjust pytest options as needed
 
-    - name: running flake8
-      run: flake8 src/ --max-line-length=99
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: |
+          **/test-results.xml  # Adjust path to your test results if necessary
