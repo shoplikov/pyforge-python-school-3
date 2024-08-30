@@ -1,0 +1,4 @@
+2024-08-30 19:05:07,202 - src.logger - INFO - Listing molecules with pagination: skip=0, limit=10
+2024-08-30 19:05:14,012 - src.logger - INFO - Retrieving molecule with identifier: aasf
+2024-08-30 19:05:21,862 - src.logger - INFO - Searching for substructures with SMILES: C
+2024-08-30 19:05:21,893 - src.logger - INFO - Found 1 matching molecules
