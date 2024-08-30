@@ -36,7 +36,6 @@ async def add_molecule(molecule: SchemaMolecule):
     db.session.commit()
 
     return db_molecule
-# $###############################
 
 @app.get("/molecules/{identifier}", response_model=SchemaMolecule)
 async def get_molecule(identifier: str):
@@ -44,7 +43,6 @@ async def get_molecule(identifier: str):
     if not molecule:
         raise HTTPException(status_code=404, detail="Molecule not found")
     return molecule
-
 
 @app.put("/molecules/{identifier}", response_model=SchemaMolecule)
 async def update_molecule(identifier: str, molecule: SchemaMolecule):
@@ -56,6 +54,7 @@ async def update_molecule(identifier: str, molecule: SchemaMolecule):
         raise HTTPException(status_code=400, detail="Invalid SMILES")
 
     db_molecule.smiles = molecule.smiles
+    db_molecule.identifier = molecule.identifier
     db.session.commit()
     return db_molecule
 

@@ -7,7 +7,7 @@ services:
     image: postgres
     restart: always
     ports:
-      - "5432:5432"
+      - "5421:5432"
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
@@ -25,7 +25,9 @@ services:
       - db
 
   app1:
-    container_name: app
+    container_name: app1
+    environment:
+      SERVER_ID: SERVER-1
     build: .
     ports:
       - "8001:8000"
@@ -37,6 +39,8 @@ services:
   
   app2:
     container_name: app2
+    environment:
+      SERVER_ID: SERVER-2
     build: .
     ports:
       - "8002:8000"
