@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   db:
@@ -7,11 +5,12 @@ services:
     image: postgres
     restart: always
     ports:
-      - "5421:5432"
+      - "5423:5432"
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_DB=${DB_NAME}
+      - DATABASE_URL=postgres://user:password@db:5432/
 
   pgadmin:
     container_name: pgadmin_container

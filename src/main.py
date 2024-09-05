@@ -9,10 +9,10 @@ from dotenv import load_dotenv
 from src.schema import Molecule as SchemaMolecule
 from src.logger import logger
 
-load_dotenv('.env')
 
 app = FastAPI()
 
+load_dotenv('.env')
 app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
 
 @app.get("/")
@@ -28,6 +28,19 @@ async def list_molecules(skip: int = Query(0, alias="page", ge=0), limit: int = 
 @app.post("/molecules/", response_model=SchemaMolecule)
 async def add_molecule(molecule: SchemaMolecule):
     logger.info(f"Adding molecule with identifier: {molecule.identifier}")
+    
+    # Check for duplicate by identifier or SMILES
+    existing_molecule = db.session.query(MoleculeModel).filter(
+        (MoleculeModel.identifier == molecule.identifier) |
+        (MoleculeModel.smiles == molecule.smiles)
+    ).first()
+
+    if existing_molecule:
+        raise HTTPException(
+            status_code=400, 
+            detail="Molecule with this identifier or SMILES already exists"
+        )
+    
     if not Chem.MolFromSmiles(molecule.smiles):
         raise HTTPException(status_code=400, detail="Invalid SMILES")
 
