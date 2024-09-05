@@ -1,54 +1,51 @@
-name: CI Pipeline
+name: CI
 
 on:
   push:
     branches:
       - main
-      - cicd
   pull_request:
     branches:
       - main
-      - cicd
 
 jobs:
   test:
-    name: run tests
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: molecule_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: --health-cmd "pg_isready -U postgres" --health-interval 10s
+
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+        options: --health-cmd "redis-cli ping" --health-interval 10s
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  
+      uses: actions/checkout@v3
 
-    - name: setup python
-      uses: actions/setup-python@v4 
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        python-version: 3.12
+        python-version: '3.12'
 
-    - name: installing dependencies
+    - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r src/requirements.txt
+        pip install -r requirements.txt
+        pip install pytest fastapi-testclient redis psycopg2
 
-    - name: running tests
-      run: pytest src/tests/
-
-  flake8:
-    name: run lake8
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4  
-
-    - name: setup python
-      uses: actions/setup-python@v4  
-      with:
-        python-version: 3.12
-
-    - name: installing dependencies
+    - name: Run tests
+      env:
+        DATABASE_URL: postgresql://postgres:password@localhost:5432/molecule_db
+        REDIS_URL: redis://localhost:6379
       run: |
-        python -m pip install --upgrade pip
-        pip install flake8 
-
-    - name: running flake8
-      run: flake8 src/ --max-line-length=99
+        pytest
