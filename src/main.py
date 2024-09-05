@@ -1,13 +1,20 @@
 from fastapi import FastAPI, HTTPException, Query
 from typing import List
 from os import getenv
-import os
 from rdkit import Chem
 from src.models import Molecule as MoleculeModel
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from dotenv import load_dotenv
 from src.schema import Molecule as SchemaMolecule
 from src.logger import logger
+from src.redis_client import redis_client
+import time
+import json
+import os
+
+app = FastAPI()
+
+CACHE_EXPIRATION_TIME = int(os.getenv("CACHE_EXPIRATION_TIME", 300)) 
 
 
 app = FastAPI()
@@ -89,7 +96,12 @@ async def delete_molecule(identifier: str):
 
 @app.post("/molecules/substructure/")
 async def substructure_search(smiles: str):
-    logger.info(f"Searching for substructures with SMILES: {smiles}")
+    cache_key = f"substructure_search:{smiles}"
+    cached_result = redis_client.get(cache_key)
+    
+    if cached_result:
+        return json.loads(cached_result)
+    
     query_mol = Chem.MolFromSmiles(smiles)
     if not query_mol:
         raise HTTPException(status_code=400, detail="Invalid SMILES for substructure query")
@@ -102,5 +114,8 @@ async def substructure_search(smiles: str):
         if db_mol and db_mol.HasSubstructMatch(query_mol):
             matching_molecules.append(mol)
 
-    logger.info(f"Found {len(matching_molecules)} matching molecules")
-    return matching_molecules
+    result = [SchemaMolecule.from_orm(mol).dict() for mol in matching_molecules]
+    
+    redis_client.setex(cache_key, CACHE_EXPIRATION_TIME, json.dumps(result))
+
+    return result

@@ -1,4 +1,4 @@
-name: Run Tests
+name: CI
 
 on:
   push:
@@ -11,7 +11,24 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: molecule_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: --health-cmd "pg_isready -U postgres" --health-interval 10s
+
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+        options: --health-cmd "redis-cli ping" --health-interval 10s
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -19,24 +36,16 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'  
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Ensure your dependencies are listed here
-
-    - name: Set up environment variables
-      run: echo "DATABASE_URL=sqlite:///./test.db" >> $GITHUB_ENV
+        pip install -r requirements.txt
+        pip install pytest fastapi-testclient redis psycopg2
 
     - name: Run tests
+      env:
+        DATABASE_URL: postgresql://postgres:password@localhost:5432/molecule_db
+        REDIS_URL: redis://localhost:6379
       run: |
-        pytest --maxfail=1 --disable-warnings -q  # Adjust pytest options as needed
-
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-results
-        path: |
-          **/test-results.xml  # Adjust path to your test results if necessary
+        pytest

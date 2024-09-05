@@ -59,3 +59,11 @@ services:
     depends_on:
       - app1
       - app2
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis:/data
