@@ -1,0 +1,93 @@
+2024-08-30 19:05:07,202 - src.logger - INFO - Listing molecules with pagination: skip=0, limit=10
+2024-08-30 19:05:14,012 - src.logger - INFO - Retrieving molecule with identifier: aasf
+2024-08-30 19:05:21,862 - src.logger - INFO - Searching for substructures with SMILES: C
+2024-08-30 19:05:21,893 - src.logger - INFO - Found 1 matching molecules
+2024-08-30 19:21:09,229 - src.logger - INFO - Searching for substructures with SMILES: C
+2024-08-30 19:21:09,251 - src.logger - INFO - Found 1 matching molecules
+2024-08-30 19:21:10,054 - src.logger - INFO - Searching for substructures with SMILES: C
+2024-08-30 19:21:10,076 - src.logger - INFO - Found 1 matching molecules
+2024-08-30 19:21:11,264 - src.logger - INFO - Searching for substructures with SMILES: C
+2024-08-30 19:21:11,266 - src.logger - INFO - Found 1 matching molecules
+2024-08-30 19:21:12,220 - src.logger - INFO - Searching for substructures with SMILES: C
+2024-08-30 19:21:12,221 - src.logger - INFO - Found 1 matching molecules
+2024-08-30 19:21:16,429 - src.logger - INFO - Listing molecules with pagination: skip=0, limit=10
+2024-08-30 19:21:56,372 - src.logger - INFO - Adding molecule with identifier: zxcvstring
+2024-08-30 19:21:56,392 - src.logger - INFO - Molecule added with identifier: zxcvstring
+2024-08-30 19:22:03,762 - src.logger - INFO - Listing molecules with pagination: skip=0, limit=10
+2024-08-30 19:22:12,566 - src.logger - INFO - Searching for substructures with SMILES: C
+2024-08-30 19:22:12,570 - src.logger - INFO - Found 2 matching molecules
+2024-09-04 09:27:00,021 - src.logger - INFO - Adding molecule with identifier: Nicotine
+2024-09-04 09:27:00,111 - src.logger - INFO - Molecule added with identifier: Nicotine
+2024-09-04 09:29:25,129 - src.logger - INFO - Adding molecule with identifier: Ethan
+2024-09-04 09:29:25,140 - src.logger - INFO - Molecule added with identifier: Ethan
+2024-09-04 09:30:08,118 - src.logger - INFO - Adding molecule with identifier: Carbon dioxide
+2024-09-04 09:30:08,214 - src.logger - INFO - Molecule added with identifier: Carbon dioxide
+2024-09-04 09:30:40,703 - src.logger - INFO - Adding molecule with identifier: Triethylamine
+2024-09-04 09:30:40,712 - src.logger - INFO - Molecule added with identifier: Triethylamine
+2024-09-04 09:31:13,170 - src.logger - INFO - Adding molecule with identifier: Acetic acid
+2024-09-04 09:31:13,179 - src.logger - INFO - Molecule added with identifier: Acetic acid
+2024-09-04 09:31:28,829 - src.logger - INFO - Adding molecule with identifier: Benzene
+2024-09-04 09:31:28,836 - src.logger - INFO - Molecule added with identifier: Benzene
+2024-09-04 09:31:29,249 - src.logger - INFO - Adding molecule with identifier: Benzene
+2024-09-04 09:31:29,259 - src.logger - INFO - Molecule added with identifier: Benzene
+2024-09-04 09:37:38,172 - src.logger - INFO - Listing molecules with pagination: skip=0, limit=10
+2024-09-05 15:18:46,837 - src.logger - INFO - Adding molecule with identifier: cyclohexane
+2024-09-05 15:18:46,957 - src.logger - INFO - Molecule added with identifier: cyclohexane
+2024-09-05 15:19:09,654 - src.logger - INFO - Adding molecule with identifier:  dioxane
+2024-09-05 15:19:09,784 - src.logger - INFO - Molecule added with identifier:  dioxane
+2024-09-05 15:19:28,142 - src.logger - INFO - Adding molecule with identifier:  decalin
+2024-09-05 15:19:28,155 - src.logger - INFO - Molecule added with identifier:  decalin
+2024-09-05 15:20:23,973 - src.logger - INFO - Adding molecule with identifier: cyclopropene
+2024-09-05 15:20:23,988 - src.logger - INFO - Molecule added with identifier: cyclopropene
+2024-09-05 15:20:43,757 - src.logger - INFO - Adding molecule with identifier: Vanillin
+2024-09-05 15:20:43,769 - src.logger - INFO - Molecule added with identifier: Vanillin
+2024-09-05 15:23:20,946 - src.logger - INFO - Adding molecule with identifier: some
+2024-09-05 15:23:20,960 - src.logger - INFO - Molecule added with identifier: some
+2024-09-05 15:24:07,741 - src.logger - INFO - Listing molecules with pagination: skip=0, limit=3
+2024-09-05 15:24:20,669 - src.logger - INFO - Listing molecules with pagination: skip=2, limit=3
+2024-09-05 15:24:39,934 - src.logger - INFO - Retrieving molecule with identifier: some
+2024-09-05 15:24:55,746 - src.logger - INFO - Updating molecule with identifier: some
+2024-09-05 15:24:55,766 - src.logger - INFO - Molecule updated with identifier: benzene
+2024-09-05 15:25:28,714 - src.logger - INFO - Searching for substructures with SMILES: C
+2024-09-05 15:25:28,723 - src.logger - INFO - Found 6 matching molecules
+2024-09-05 15:25:35,481 - src.logger - INFO - Searching for substructures with SMILES: c1ccccc1
+2024-09-05 15:25:35,488 - src.logger - INFO - Found 2 matching molecules
+2024-09-05 15:41:36,590 - src.logger - INFO - Adding molecule with identifier:  dioxane
+2024-09-05 21:56:39,202 - httpx - INFO - HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+2024-09-05 21:56:39,204 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:56:39,677 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:56:40,138 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:56:40,573 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:56:41,043 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:56:41,508 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:57:02,659 - httpx - INFO - HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+2024-09-05 21:57:02,662 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:57:03,124 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:57:03,542 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:57:03,970 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:57:04,442 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:57:04,869 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:58:06,116 - httpx - INFO - HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+2024-09-05 21:58:06,118 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:58:06,588 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:58:07,007 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:58:07,445 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:58:07,924 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 21:58:08,495 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:01:05,377 - httpx - INFO - HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+2024-09-05 22:01:05,381 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:01:05,947 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:01:06,372 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:01:06,810 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:01:07,284 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:01:07,708 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:02:28,275 - httpx - INFO - HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+2024-09-05 22:02:28,278 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:02:28,756 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:02:29,179 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:02:29,607 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:02:30,084 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-05 22:02:30,509 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-12 17:44:15,681 - src.logger - INFO - Adding molecule with identifier: asdf
+2024-09-12 17:46:31,135 - src.logger - INFO - Adding molecule with identifier: asdf
+2024-09-12 17:47:19,470 - src.logger - INFO - Listing molecules with pagination: skip=0, limit=10
