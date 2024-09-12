@@ -67,3 +67,13 @@ services:
       - "6379:6379"
     volumes:
       - ./redis:/data
+    
+    celery:
+      container_name: celery
+      build: .
+      command: celery -A src worker -l info
+      volumes:
+        - .:/app
+      depends_on:
+        - redis
+        - db

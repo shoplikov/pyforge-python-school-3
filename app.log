@@ -88,3 +88,6 @@
 2024-09-05 22:02:29,607 - src.logger - INFO - Adding molecule with identifier: mol1
 2024-09-05 22:02:30,084 - src.logger - INFO - Adding molecule with identifier: mol1
 2024-09-05 22:02:30,509 - src.logger - INFO - Adding molecule with identifier: mol1
+2024-09-12 17:44:15,681 - src.logger - INFO - Adding molecule with identifier: asdf
+2024-09-12 17:46:31,135 - src.logger - INFO - Adding molecule with identifier: asdf
+2024-09-12 17:47:19,470 - src.logger - INFO - Listing molecules with pagination: skip=0, limit=10

@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from src.schema import Molecule as SchemaMolecule
 from src.logger import logger
 from src.redis_client import redis_client
+from celery.result import AsyncResult
 import time
 import json
 import os
@@ -15,9 +16,6 @@ import os
 app = FastAPI()
 
 CACHE_EXPIRATION_TIME = int(os.getenv("CACHE_EXPIRATION_TIME", 300)) 
-
-
-app = FastAPI()
 
 load_dotenv('.env')
 app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
@@ -94,28 +92,31 @@ async def delete_molecule(identifier: str):
     logger.info(f"Molecule deleted with identifier: {identifier}")
     return {"detail": "Molecule deleted"}
 
+
 @app.post("/molecules/substructure/")
-async def substructure_search(smiles: str):
-    cache_key = f"substructure_search:{smiles}"
-    cached_result = redis_client.get(cache_key)
-    
-    if cached_result:
-        return json.loads(cached_result)
-    
+async def start_substructure_search(smiles: str):
     query_mol = Chem.MolFromSmiles(smiles)
     if not query_mol:
         raise HTTPException(status_code=400, detail="Invalid SMILES for substructure query")
-
-    molecules = db.session.query(MoleculeModel).all()
-    matching_molecules = []
-
-    for mol in molecules:
-        db_mol = Chem.MolFromSmiles(mol.smiles)
-        if db_mol and db_mol.HasSubstructMatch(query_mol):
-            matching_molecules.append(mol)
-
-    result = [SchemaMolecule.from_orm(mol).dict() for mol in matching_molecules]
     
-    redis_client.setex(cache_key, CACHE_EXPIRATION_TIME, json.dumps(result))
+    task = substructure_search_task.delay(smiles)  
+    return {"task_id": task.id, "status":
+             "Task submitted successfully"}
 
-    return result
+@app.get("/molecules/substructure/{task_id}")
+async def get_substructure_search_results(task_id: str):
+    task_result = AsyncResult(task_id)
+    
+    if task_result.state == 'PENDING':
+        return {"task_id": task_id, "status": "Task is still processing"}
+
+    if task_result.state == 'FAILURE':
+        return {"task_id": task_id, "status": "Task failed", "error": str(task_result.info)}
+
+    if task_result.state == 'SUCCESS':
+        return {"task_id": task_id, "status": "Task completed", "result": task_result.result}
+
+    return {"task_id": task_id, "status": task_result.state, "error": str(task_result.info)}
+
+            
+            

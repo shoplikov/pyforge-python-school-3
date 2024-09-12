@@ -11,3 +11,4 @@ alembic
 psycopg2-binary
 redis
 fastapi-sqlalchemy
+celery[redis]
